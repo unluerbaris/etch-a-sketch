@@ -3,6 +3,8 @@ const resetButton = document.querySelector(".resetButton");
 
 const containerSize = container.clientWidth;
 const startGridSize = 16; // 16x16 grid
+const minGridSize = 2;
+const maxGridSize = 100;
 
 let currentGridSize = startGridSize;
 createNewGrid(currentGridSize); // Create new grid with fixed starting size
@@ -51,10 +53,15 @@ function clearGrid(gridSize) {
 // then clears the previous grid 
 // and draws new one with the new grid size value
 function reset() {
-    const newGridSize = Number(prompt("Enter the grid size"));
+    let newGridSize = Number(prompt(`Please enter a grid size value between ${minGridSize} and ${maxGridSize}`));
 
-    clearGrid(currentGridSize);
+    if (newGridSize > 100 || newGridSize < 2) {
+        alert(`Grid size value must be more than ${minGridSize} and less than ${maxGridSize}`);
+        reset();
+    } else {
+        clearGrid(currentGridSize);
 
-    currentGridSize = newGridSize;
-    createNewGrid(currentGridSize);
+        currentGridSize = newGridSize;
+        createNewGrid(currentGridSize);
+    }
 }
