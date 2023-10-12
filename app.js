@@ -1,7 +1,9 @@
 const container = document.querySelector(".container");
 const resetButton = document.querySelector(".resetButton");
 
+const containerSize = container.clientWidth;
 const startGridSize = 16; // 16x16 grid
+
 let currentGridSize = startGridSize;
 createNewGrid(currentGridSize); // Create new grid with fixed starting size
 
@@ -21,7 +23,7 @@ function createNewGrid(gridSize) {
             const square = document.createElement("div");
             square.classList.add(`square${(i * gridSize) + j}`);
             column.append(square);
-            square.setAttribute("style", "outline: solid 1px; width: 20px; height:20px;");
+            square.setAttribute("style", `outline: solid 1px; width: ${containerSize / gridSize}px; height: ${containerSize / gridSize}px;`);
     
             square.addEventListener("mousedown", event => {
                 event.target.style.background = "black";
