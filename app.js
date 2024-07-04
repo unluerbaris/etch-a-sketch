@@ -6,6 +6,8 @@ const startGridSize = 16; // 16x16 grid
 const minGridSize = 2;
 const maxGridSize = 100;
 
+let isClicked = false;
+
 let currentGridSize = startGridSize;
 createNewGrid(currentGridSize); // Create new grid with fixed starting size
 
@@ -26,12 +28,27 @@ function createNewGrid(gridSize) {
             square.classList.add(`square${(i * gridSize) + j}`);
             column.append(square);
             square.setAttribute("style", `outline: solid 1px; width: ${containerSize / gridSize}px; height: ${containerSize / gridSize}px;`);
-    
+
+            square.addEventListener("mousedown", paint);
+            square.addEventListener("mouseover", paint);
+
+            // Update isClicked
             square.addEventListener("mousedown", event => {
-                event.target.style.background = "black";
+                isClicked = true;
+                console.log(isClicked);
+            });
+            square.addEventListener("mouseup", event => {
+                isClicked = false;
+                console.log(isClicked);
             });
         }
     }
+}
+
+// Paint while mousedown until mouseup event
+function paint(event) {
+    if (event.type === "mouseover" && !isClicked) return;
+    event.target.style.background = "black";
 }
 
 // clearGrid(gridSize) function first removes squares inside the column element
