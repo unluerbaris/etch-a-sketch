@@ -1,10 +1,12 @@
 const container = document.querySelector(".container");
 const resetButton = document.querySelector(".resetButton");
+const slider = document.getElementById("myRange");
+const sliderOutput = document.getElementById("sliderOutput");
 
 const containerSize = container.clientWidth;
 const startGridSize = 16; // 16x16 grid
 const minGridSize = 2;
-const maxGridSize = 100;
+const maxGridSize = 64;
 
 let isClicked = false;
 
@@ -18,6 +20,13 @@ resetButton.addEventListener("click", reset);
 // then every column takes square elements that created in nested for loop
 // every square has an event listener that listens mouse events
 function createNewGrid(gridSize) {
+    sliderOutput.innerText = gridSize;
+    slider.oninput = () => {
+        sliderOutput.innerText = slider.value;
+    }
+
+    gridSize = slider.value;
+
     for (let i = 0; i < gridSize; i++) {
         const column = document.createElement("div");
         column.classList.add(`column${i}`);
@@ -70,9 +79,9 @@ function clearGrid(gridSize) {
 // then clears the previous grid 
 // and draws new one with the new grid size value
 function reset() {
-    let newGridSize = Number(prompt(`Please enter a grid size value between ${minGridSize} and ${maxGridSize}`));
+    let newGridSize = slider.value;
 
-    if (newGridSize > 100 || newGridSize < 2) {
+    if (newGridSize > maxGridSize || newGridSize < minGridSize) {
         alert(`Grid size value must be more than ${minGridSize} and less than ${maxGridSize}`);
         reset();
     } else {

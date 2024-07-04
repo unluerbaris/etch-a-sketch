@@ -6,8 +6,14 @@
     <title>etch a sketch</title>
 </head>
 <body>
-    <div class="container"></div>
-    <button class="resetButton">Reset</button>
-    <script src="./app.js"></script>
+    <div class="mainDiv">
+        <div class="container"></div>
+        <div class="slidercontainer">
+            <input type="range" min="2" max="64" value="16" class="slider" id="myRange">
+            <p id="sliderOutput">RANGE</p>
+        </div>
+        <button class="resetButton">Reset</button>
+        <script src="./app.js"></script>
+    </div>
 </body>
 </html>
