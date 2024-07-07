@@ -1,20 +1,22 @@
+// GET HTML ELEMENTS
 const container = document.querySelector(".container");
 const pencilButton = document.querySelector(".pencilButton");
 const eraserButton = document.querySelector(".eraserButton");
 const resetButton = document.querySelector(".resetButton");
-const slider = document.getElementById("myRange");
+const gridToggle = document.getElementById("gridToggle");
+const slider = document.getElementById("gridSlider");
 const sliderOutput = document.getElementById("sliderOutput");
 
+// CONSTANTS
 const containerSize = container.clientWidth;
 const startGridSize = 16; // 16x16 grid
 const minGridSize = 2;
 const maxGridSize = 64;
 
 let currentColor = "#000000"; // black is the starter color
-
 let isClicked = false;
-
 let currentGridSize = startGridSize;
+
 createNewGrid(currentGridSize); // Create new grid with fixed starting size
 
 resetButton.addEventListener("click", reset);
@@ -42,8 +44,31 @@ function createNewGrid(gridSize) {
             const square = document.createElement("div");
             square.classList.add(`square${(i * gridSize) + j}`);
             column.append(square);
-            square.setAttribute("style", `outline: solid 1px; width: ${containerSize / gridSize}px; height: ${containerSize / gridSize}px;`);
+            square.setAttribute(
+                "style", 
+                `outline: solid 1px; 
+                width: ${containerSize / gridSize}px; 
+                height: ${containerSize / gridSize}px;`
+            );
 
+            // SETUP EVENT LISTENERS
+            gridToggle.addEventListener('change', event => {
+                if (gridToggle.checked) {
+                    square.setAttribute(
+                        "style", 
+                        `outline: solid 1px; 
+                        width: ${containerSize / gridSize}px; 
+                        height: ${containerSize / gridSize}px;`
+                    );
+                } else {
+                    square.setAttribute(
+                        "style", 
+                        `outline: none; 
+                        width: ${containerSize / gridSize}px; 
+                        height: ${containerSize / gridSize}px;`
+                    );
+                }
+            });
             square.addEventListener("mousedown", paint);
             square.addEventListener("mouseover", paint);
 
