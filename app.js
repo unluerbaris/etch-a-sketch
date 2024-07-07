@@ -1,4 +1,6 @@
 const container = document.querySelector(".container");
+const pencilButton = document.querySelector(".pencilButton");
+const eraserButton = document.querySelector(".eraserButton");
 const resetButton = document.querySelector(".resetButton");
 const slider = document.getElementById("myRange");
 const sliderOutput = document.getElementById("sliderOutput");
@@ -8,12 +10,16 @@ const startGridSize = 16; // 16x16 grid
 const minGridSize = 2;
 const maxGridSize = 64;
 
+let currentColor = "#000000"; // black is the starter color
+
 let isClicked = false;
 
 let currentGridSize = startGridSize;
 createNewGrid(currentGridSize); // Create new grid with fixed starting size
 
 resetButton.addEventListener("click", reset);
+pencilButton.addEventListener("click", () => currentColor = "#000000");
+eraserButton.addEventListener("click", () => currentColor = "#FFFFFF");
 
 // createNewGrid(gridSize) function has one parameter that takes grid size.
 // first it creates columns and adds it in container
@@ -57,7 +63,7 @@ function createNewGrid(gridSize) {
 // Paint while mousedown until mouseup event
 function paint(event) {
     if (event.type === "mouseover" && !isClicked) return;
-    event.target.style.background = "black";
+    event.target.style.background = currentColor;
 }
 
 // clearGrid(gridSize) function first removes squares inside the column element
